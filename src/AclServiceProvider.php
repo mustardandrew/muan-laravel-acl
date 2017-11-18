@@ -19,6 +19,12 @@ class AclServiceProvider extends ServiceProvider
 {
 
     /**
+     * Commands
+     * @var array
+     */
+    protected $commands = [];
+
+    /**
      * Boot
      * @return void
      */
@@ -41,6 +47,10 @@ class AclServiceProvider extends ServiceProvider
         Blade::directive('endrole', function() {
             return "<?php endif; ?>";
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands($this->commands);
+        }
     }
 
     /**
