@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class CreatePermissionsTable
+ * 
  * @package Muan\Acl
  */
 class CreatePermissionsTable extends Migration
@@ -19,7 +20,7 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('name');
             $table->timestamps();
         });
     }

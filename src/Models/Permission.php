@@ -5,14 +5,14 @@ namespace Muan\Acl\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Permision
+ * Class Permission
  * @package Muan\Acl
  * @subpackage Models
  */
-class Permision extends Model
+class Permission extends Model
 {
     protected $fillable = [
-        'title'
+        'name'
     ];
 
     public function roles()
