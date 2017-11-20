@@ -1,9 +1,16 @@
 <?php
 
-namespace App\Console\Commands\Role;
+namespace Muan\Acl\Commands\Role;
 
 use Illuminate\Console\Command;
+use Muan\Acl\Models\Role;
 
+/**
+ * Class ListCommand
+ *
+ * @package Muan\Acl
+ * @subpackage Commands
+ */
 class ListCommand extends Command
 {
     /**
@@ -11,14 +18,14 @@ class ListCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'role:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Show role list';
 
     /**
      * Create a new command instance.
@@ -37,6 +44,12 @@ class ListCommand extends Command
      */
     public function handle()
     {
-        //
+        $roles = Role::all(['id', 'name']);
+        if ($roles->count()) {
+            $this->table(['ID', 'Role'], $roles->toArray());
+        } else {
+            echo "Not found any roles!", PHP_EOL;
+        }
     }
+
 }
