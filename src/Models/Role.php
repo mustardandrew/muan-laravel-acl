@@ -4,7 +4,7 @@ namespace Muan\Acl\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Muan\Acl\Traits\HasPermissions;
+use Muan\Acl\Traits\HasPermissionsTrait;
 
 /**
  * Class Role
@@ -13,7 +13,7 @@ use Muan\Acl\Traits\HasPermissions;
  */
 class Role extends Model
 {
-    use HasPermissions;
+    use HasPermissionsTrait;
 
     protected $fillable = [
         'name'

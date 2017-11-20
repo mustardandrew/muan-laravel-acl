@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 
 use Muan\Acl\Middleware\RoleMiddleware;
+use Muan\Acl\Commands\Role\ListCommand;
 use Muan\Acl\Models\Permission;
 
 /**
@@ -22,7 +23,9 @@ class AclServiceProvider extends ServiceProvider
      * Commands
      * @var array
      */
-    protected $commands = [];
+    protected $commands = [
+        ListCommand::class,
+    ];
 
     /**
      * Boot
@@ -32,11 +35,13 @@ class AclServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . "/migrations");
 
-        Permission::get()->map(function(Permission $permission) {
-            Gate::define($permission->name, function ($user) use ($permission) {
-                return $user->hasPermissionTo($permission);
+        if (! $this->app->runningInConsole()) {
+            Permission::get()->map(function(Permission $permission) {
+                Gate::define($permission->name, function ($user) use ($permission) {
+                    return $user->hasPermissionTo($permission);
+                });
             });
-        });
+        }
 
         Route::middleware('role', RoleMiddleware::class);
 

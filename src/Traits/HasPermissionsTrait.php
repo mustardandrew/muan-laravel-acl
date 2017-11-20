@@ -5,12 +5,12 @@ namespace Muan\Acl\Traits;
 use Muan\Acl\Models\Permission;
 
 /**
- * Trait HasPermissions
+ * Trait HasPermissionsTrait
  * 
  * @package Muan\Acl
  * @subpackage Traits
  */
-trait HasPermissions
+trait HasPermissionsTrait
 {
 
     /**
