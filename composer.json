@@ -1,0 +1,14 @@
+{
+    "name": "muan/laravel-acl",
+    "description": "ACL package for Laravel",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mustard Andrew",
+            "email": "mustard.andrew@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
