@@ -6,10 +6,12 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class CreateUsersPermissionsTable
+ * 
  * @package Muan\Acl
  */
 class CreateUsersPermissionsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -38,4 +40,5 @@ class CreateUsersPermissionsTable extends Migration
     {
         Schema::dropIfExists('users_permissions');
     }
+    
 }

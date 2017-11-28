@@ -6,10 +6,12 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class CreateRolesPermissionsTable
+ * 
  * @package Muan\Acl
  */
 class CreateRolesPermissionsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -38,4 +40,5 @@ class CreateRolesPermissionsTable extends Migration
     {
         Schema::dropIfExists('roles_permissions');
     }
+    
 }

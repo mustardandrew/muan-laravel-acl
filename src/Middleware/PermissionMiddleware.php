@@ -5,29 +5,29 @@ namespace Muan\Acl\Middleware;
 use Closure;
 
 /**
- * Class RoleMiddleware
+ * Class PerrmissionMiddleware
  *
  * @package Muan\Acl
  * @subpackage Middleware
  */
-class RoleMiddleware
+class PerrmissionMiddleware
 {
-
+    
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param \Closure  $next
      * @param string $role
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $permission)
     {
-        if (! $request->user()->hasRole($role)) {
+        if (! $request->user()->can($permission)) {
             abort(403);
         }
 
         return $next($request);
     }
-    
+
 }

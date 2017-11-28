@@ -6,10 +6,12 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class CreateUsersRolesTable
+ * 
  * @package Muan\Acl
  */
 class CreateUsersRolesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -38,4 +40,5 @@ class CreateUsersRolesTable extends Migration
     {
         Schema::dropIfExists('users_roles');
     }
+    
 }

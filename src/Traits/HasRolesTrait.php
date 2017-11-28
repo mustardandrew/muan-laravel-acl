@@ -15,6 +15,7 @@ trait HasRoles
 
     /**
      * Has role
+     * 
      * @param string $roles
      * @return boolean
      */
@@ -32,8 +33,9 @@ trait HasRoles
     }
 
     /**
-     * Roles
-     * @return
+     * Relation to roles
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\Relation
      */
     public function roles()
     {

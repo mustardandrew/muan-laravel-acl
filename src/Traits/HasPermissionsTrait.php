@@ -15,6 +15,7 @@ trait HasPermissionsTrait
 
     /**
      * Give permission to
+     * 
      * @param $permissions
      * @return $this
      */
@@ -33,6 +34,7 @@ trait HasPermissionsTrait
 
     /**
      * Withdraw permission to
+     * 
      * @param $permissions
      * @return $this
      */
@@ -47,6 +49,7 @@ trait HasPermissionsTrait
 
     /**
      * Refresh permission to
+     * 
      * @param $permissions
      * @return $this
      */
@@ -59,6 +62,7 @@ trait HasPermissionsTrait
 
     /**
      * Has permission to
+     * 
      * @param Permission $permission
      * @return boolean
      */
@@ -69,6 +73,7 @@ trait HasPermissionsTrait
 
     /**
      * Has permission through role
+     * 
      * @param Permission $permission
      * @return boolean
      */
@@ -89,6 +94,7 @@ trait HasPermissionsTrait
 
     /**
      * Has permission
+     * 
      * @param Permission $permission
      * @return boolean
      */
@@ -99,6 +105,7 @@ trait HasPermissionsTrait
 
     /**
      * Get all permissions
+     * 
      * @param array $permissions
      * @return
      */
@@ -108,8 +115,9 @@ trait HasPermissionsTrait
     }
 
     /**
-     * Permissions
-     * @return [type] [description]
+     * Relation to permissions
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\Relation
      */
     public function permissions()
     {

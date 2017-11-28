@@ -3,11 +3,9 @@
 namespace Muan\Acl;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{Gate, Blade, Route};
 
-use Muan\Acl\Middleware\RoleMiddleware;
+use Muan\Acl\Middleware\{RoleMiddleware, PermissionMiddleware};
 use Muan\Acl\Commands\Role\ListCommand;
 use Muan\Acl\Models\Permission;
 
@@ -21,6 +19,7 @@ class AclServiceProvider extends ServiceProvider
 
     /**
      * Commands
+     * 
      * @var array
      */
     protected $commands = [
@@ -29,42 +28,82 @@ class AclServiceProvider extends ServiceProvider
 
     /**
      * Boot
+     * 
      * @return void
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . "/migrations");
+        $this->initMigrations();
+        $this->initPermissions();
+        $this->initMiddlewares();
+        $this->initDirectives();
+        $this->initCommands();
+    }
 
-        if (! $this->app->runningInConsole()) {
-            Permission::get()->map(function(Permission $permission) {
-                Gate::define($permission->name, function ($user) use ($permission) {
-                    return $user->hasPermissionTo($permission);
-                });
-            });
+    /**
+     * Initialization migrations
+     * 
+     * @return void
+     */
+    protected function initMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ . "/migrations");
+    }
+
+    /**
+     * Initialization permissions
+     * 
+     * @return void
+     */
+    protected function initPermissions()
+    {
+        if ($this->app->runningInConsole()) {
+            return;
         }
 
-        Route::middleware('role', RoleMiddleware::class);
+        Permission::get()->map(function(Permission $permission) {
+            Gate::define($permission->name, function ($user) use ($permission) {
+                return $user->hasPermissionTo($permission);
+            });
+        });        
+    }
 
-        // has role directive
+    /**
+     * Initialization middlewares
+     * 
+     * @return void
+     */
+    protected function initMiddleware()
+    {
+        Route::middleware('role', RoleMiddleware::class);
+        Route::middleware('permission', PermissionMiddleware::class);
+    }
+
+    /**
+     * Initialization directives
+     * 
+     * @return void
+     */
+    protected function initDirectives()
+    {
         Blade::directive('role', function($role) {
             return "<?php if (auth()->check() && auth()->user()->hasRole({$role})) : ?>";
         });
         Blade::directive('endrole', function() {
             return "<?php endif; ?>";
         });
-
-        if ($this->app->runningInConsole()) {
-            $this->commands($this->commands);
-        }
     }
 
     /**
-     * Register
+     * Initialization commands
+     * 
      * @return void
      */
-    public function register()
+    protected function initCommands()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands($this->commands);
+        }
     }
 
 }
