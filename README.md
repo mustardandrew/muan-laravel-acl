@@ -1,11 +1,5 @@
 # ACL package for Laravel
 
-[![Latest Version on Packagist][ico-version]](link-packagist)
-[![Software License][ico-license]](LICENSE)
-[![Quality Score][ico-code-quality]][link-code-quality]
-[![Style CI](https://styleci.io/repos/58740020/shield)](https://styleci.io/repos/58740020)
-[![Total Downloads][ico-downloads]][link-downloads]
-
 Packages is not complated!..
 
 ## Install
