@@ -3,6 +3,7 @@
     "description": "ACL package for Laravel",
     "version": "0.1",
     "type": "package",
+    "keywords": ["laravel", "acl", "role", "permission", "package"],
     "license": "MIT",
     "authors": [
         {
@@ -10,6 +11,21 @@
             "email": "mustard.andrew@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Muan\\Acl\\": "src/"
+        }
+    },
     "minimum-stability": "dev",
-    "require": {}
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Muan\\Acl\\AclServiceProvider"
+            ]
+        }
+    }
 }
