@@ -89,6 +89,9 @@ class AclServiceProvider extends ServiceProvider
         Blade::directive('role', function($role) {
             return "<?php if (auth()->check() && auth()->user()->hasRole({$role})) : ?>";
         });
+        Blade::directive('elserole', function($role) {
+            return "<?php elseif ($role): ?>";
+        });
         Blade::directive('endrole', function() {
             return "<?php endif; ?>";
         });

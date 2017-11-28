@@ -10,7 +10,7 @@ use Muan\Acl\Models\Role;
  * @package Muan\Acl
  * @subpackage Traits
  */
-trait HasRoles
+trait HasRolesTrait
 {
 
     /**
