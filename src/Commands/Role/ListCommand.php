@@ -35,12 +35,11 @@ class ListCommand extends Command
     public function handle()
     {
         $roles = Role::all(['id', 'name', 'created_at', 'updated_at']);
+
         if ($roles->count()) {
-            echo PHP_EOL;
             $this->table(['ID', 'Role', 'Created At', 'Updated At'], $roles->toArray());
-            echo PHP_EOL;
         } else {
-            echo PHP_EOL, "Not found any roles!", str_repeat(PHP_EOL, 2);
+            $this->warn("Not found any roles!");
         }
     }
 

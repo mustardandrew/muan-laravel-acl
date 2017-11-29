@@ -6,26 +6,26 @@ use Illuminate\Console\Command;
 use Muan\Acl\Models\Role;
 
 /**
- * Class AddCommand
+ * Class RenameCommand
  *
  * @package Muan\Acl
  * @subpackage Commands
  */
-class AddCommand extends Command
+class RenameCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'role:add {role}';
+    protected $signature = 'role:rename {role} {newRole}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Add role';
+    protected $description = 'Rename role';
 
     /**
      * Execute the console command.
@@ -35,16 +35,19 @@ class AddCommand extends Command
     public function handle()
     {
         $roleName = $this->argument('role');
+        $newRoleName = $this->argument('newRole');
 
-        if ($role = Role::whereName($roleName)->first()) {
-            $this->warn("Role name {$roleName} already exists.");
+        if (! $role = Role::whereName($roleName)->first()) {
+            $this->warn("Role {$roleName} not exists.");
             return;
         }
 
-        if ($role = Role::create(['name' => $roleName])) {
-            echo "Role {$roleName} created successfully.", PHP_EOL;
+        $role->name = $newRoleName;
+
+        if ($role->save()) {
+            echo "Rename role {$roleName} to {$newRoleName} successfully.", PHP_EOL;
         } else {
-            $this->error("Role {$roleName} not created!");
+            $this->error("Rename role {$roleName} is fail!");
         }
     }
 

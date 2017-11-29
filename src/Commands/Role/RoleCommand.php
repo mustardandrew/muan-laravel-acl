@@ -6,26 +6,26 @@ use Illuminate\Console\Command;
 use Muan\Acl\Models\Role;
 
 /**
- * Class AddCommand
+ * Class RoleCommand
  *
  * @package Muan\Acl
  * @subpackage Commands
  */
-class AddCommand extends Command
+class RoleCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'role:add {role}';
+    protected $signature = 'role {role}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Add role';
+    protected $description = 'Show information about role.';
 
     /**
      * Execute the console command.
@@ -36,16 +36,16 @@ class AddCommand extends Command
     {
         $roleName = $this->argument('role');
 
-        if ($role = Role::whereName($roleName)->first()) {
-            $this->warn("Role name {$roleName} already exists.");
+        if (! $role = Role::whereName($roleName)->first()) {
+            $this->warn("Role {$roleName} not found!");
             return;
         }
 
-        if ($role = Role::create(['name' => $roleName])) {
-            echo "Role {$roleName} created successfully.", PHP_EOL;
-        } else {
-            $this->error("Role {$roleName} not created!");
-        }
+        echo "Role: {$role->name} ({$role->id})", PHP_EOL;
+        echo "Permissions:", PHP_EOL;
+
+        // TODO: Show permissions
+
     }
 
 }
