@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{Gate, Blade, Route};
 
 use Muan\Acl\Middleware\{RoleMiddleware, PermissionMiddleware};
-use Muan\Acl\Commands\Role\ListCommand;
 use Muan\Acl\Models\Permission;
 
 /**
@@ -23,7 +22,8 @@ class AclServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        ListCommand::class,
+        \Muan\Acl\Commands\Role\ListCommand::class,
+        \Muan\Acl\Commands\Role\AddCommand::class,
     ];
 
     /**
@@ -73,7 +73,7 @@ class AclServiceProvider extends ServiceProvider
      * 
      * @return void
      */
-    protected function initMiddleware()
+    protected function initMiddlewares()
     {
         Route::middleware('role', RoleMiddleware::class);
         Route::middleware('permission', PermissionMiddleware::class);

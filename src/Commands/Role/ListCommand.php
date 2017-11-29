@@ -28,27 +28,19 @@ class ListCommand extends Command
     protected $description = 'Show role list';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $roles = Role::all(['id', 'name']);
+        $roles = Role::all(['id', 'name', 'created_at', 'updated_at']);
         if ($roles->count()) {
-            $this->table(['ID', 'Role'], $roles->toArray());
+            echo PHP_EOL;
+            $this->table(['ID', 'Role', 'Created At', 'Updated At'], $roles->toArray());
+            echo PHP_EOL;
         } else {
-            echo "Not found any roles!", PHP_EOL;
+            echo PHP_EOL, "Not found any roles!", str_repeat(PHP_EOL, 2);
         }
     }
 
