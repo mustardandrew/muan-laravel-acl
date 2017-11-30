@@ -1,4 +1,4 @@
-# ACL package for Laravel (not completed)
+# Muan Laravel Acl package (not completed)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/aafb0da4bb6b457f635b/maintainability)](https://codeclimate.com/github/mustardandrew/muan-laravel-acl/maintainability)
 
@@ -17,6 +17,8 @@ composer require muan/laravel-acl
 ```
 
 2) Add the service provider to your config/app.php file in section providers:
+
+> Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
 
 ```php
 'providers' => [
