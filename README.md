@@ -137,4 +137,4 @@ Route::middleware(['role:moderator', 'permission:remove post'])->group(function(
 
 ## License
 
-Laravel Muan Acl package is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+Muan Laravel Acl package is licensed under the [MIT License](http://opensource.org/licenses/MIT).
