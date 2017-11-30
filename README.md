@@ -55,6 +55,10 @@ class User extends Authenticatable
 
 // TODO
 
+### Using observer
+
+// TODO
+
 ### Commands for manipulation
 
 // TODO
