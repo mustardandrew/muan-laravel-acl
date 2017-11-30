@@ -1,6 +1,10 @@
-# ACL package for Laravel
+# ACL package for Laravel (not completed)
 
-Packages is not complated!..
+Muan Acl is a PHP package for Laravel Framework, used for manipulation of access control list. Package is providing an easier way to control roles and permissions of users on your site.
+
+## Requirements
+
+- PHP >=7.0
 
 ## Install
 
@@ -88,4 +92,45 @@ Check permissions:
 
 ### Using middlewares
 
-// TODO
+You can use role middleware for check access to some routes
+
+```php
+Route::middleware(['role:admin'])->group(function() {
+    
+    // Only for user with role admin
+    Route::get('/admin', function() {
+        // some code
+    });
+
+});
+```
+
+also you can use permission middleware
+
+```php
+Route::middleware(['permission:create post'])->group(function() {
+    
+    // Only for user with permission create post
+    Route::get('/admin/post', function() {
+        // some code
+    });
+    
+});
+```
+
+or use role and permission middlewares together
+
+```php
+Route::middleware(['role:moderator', 'permission:remove post'])->group(function() {
+    
+    // Only for user with role moderator and with permission create post
+    Route::get('/admin/post/remove', function() {
+        // some code
+    });
+    
+});
+```
+
+## License
+
+Laravel Muan Acl package is licensed under the [MIT License](http://opensource.org/licenses/MIT).
