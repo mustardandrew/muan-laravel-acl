@@ -1,4 +1,6 @@
-# ACL package for Laravel
+# ACL package for Laravel (not complated)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/aafb0da4bb6b457f635b/maintainability)](https://codeclimate.com/github/mustardandrew/muan-laravel-acl/maintainability)
 
 Packages is not complated!..
 
