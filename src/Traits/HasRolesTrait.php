@@ -41,19 +41,11 @@ trait HasRolesTrait
      */
     public function addRole(...$roles) 
     {
-        $roles = array_flatten($roles);
-
-        foreach ($roles as $role) {
-            if ($this->hasRole($role)) {
-                continue;
-            }
-
-            if ($role instanceof Role) {
-                $this->attach($role->id);
-            } elseif ($role = Role::whereName($role)->first()) {
+        $this->each($roles, function($role) {
+            if (! $this->hasRole($role)) {
                 $this->attach($role->id);
             }
-        }
+        });
 
         return $this;
     }
@@ -66,19 +58,11 @@ trait HasRolesTrait
      */
     public function removeRole(...$roles)
     {
-        $roles = array_flatten($roles);
-
-        foreach ($roles as $role) {
-            if (! $this->hasRole($role)) {
-                continue;
+        $this->each($roles, function($role) {
+            if ($this->hasRole($role)) {
+                $this->detach($role->id);
             }
-
-            if ($role instanceof Role) {
-                $this->detach($role->id);
-            } elseif ($role = Role::whereName($role)->first()) {
-                $this->detach($role->id);
-            }   
-        }
+        });
 
         return $this;
     }
@@ -104,5 +88,36 @@ trait HasRolesTrait
     {
         return $this->belongsToMany(Role::class, 'users_roles');
     }
+
+    /**
+     * Prepare role
+     * @param Role|string $role
+     * @return Role
+     */
+    protected function prepareRole($role)
+    {
+        if ($role instanceof Role) {
+            return $role;
+        }
+
+        return Role::whereName($role)->first();
+    }
+
+    /**
+     * Calc each rote
+     * 
+     * @param array $roles
+     * @param callable $callback
+     */
+    protected function each(array $roles, callable $callback)
+    {
+        $roles = array_flatten($roles);
+
+        foreach ($roles as $role) {
+            if ($role = $this->prepareRole($role)) {
+                $callback($role);    
+            }
+        }
+    } 
 
 }
