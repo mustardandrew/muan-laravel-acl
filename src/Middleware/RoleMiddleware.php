@@ -7,8 +7,7 @@ use Closure;
 /**
  * Class RoleMiddleware
  *
- * @package Muan\Acl
- * @subpackage Middleware
+ * @package Muan\Acl\Middleware
  */
 class RoleMiddleware
 {

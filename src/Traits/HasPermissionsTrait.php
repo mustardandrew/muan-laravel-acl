@@ -7,68 +7,23 @@ use Muan\Acl\Models\Permission;
 /**
  * Trait HasPermissionsTrait
  * 
- * @package Muan\Acl
- * @subpackage Traits
+ * @package Muan\Acl\Traits
  */
 trait HasPermissionsTrait
 {
 
     /**
-     * Give permission to
+     * Has permission
      * 
-     * @param $permissions
-     * @return $this
-     */
-    public function givePermissionTo(...$permissions)
-    {
-        $permissions = $this->getAllPermissions(array_flatten($permissions));
-
-        if ($permission === null) {
-            return $this;
-        }
-
-        $this->permissions()->saveMany($permissions);
-
-        return $this;
-    }
-
-    /**
-     * Withdraw permission to
-     * 
-     * @param $permissions
-     * @return $this
-     */
-    public function withdrawPermissionTo(...$permissions)
-    {
-        $permissions = $this->getAllPermissions(array_flatten($permissions));
-
-        $this->permissions()->detach($permissions);
-
-        return $this;
-    }
-
-    /**
-     * Refresh permission to
-     * 
-     * @param $permissions
-     * @return $this
-     */
-    public function refreshPermissionTo(...$permissions)
-    {
-        $this->permissions()->detach();
-
-        return $this->givePermissionTo($permissions);        
-    }
-
-    /**
-     * Has permission to
-     * 
-     * @param Permission $permission
+     * @param mixed $permission
      * @return boolean
      */
-    public function hasPermissionTo(Permission $permission)
+    public function hasPermission($permission)
     {
-        return  $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
+        $name = $permission instanceof Permission ? $permission->name : $permission;
+
+        return $this->hasPermissionThroughRole($permission) 
+            || ((bool) $this->permissions->whereName($name)->count());
     }
 
     /**
@@ -77,10 +32,16 @@ trait HasPermissionsTrait
      * @param Permission $permission
      * @return boolean
      */
-    public function hasPermissionThroughRole(Permission $permission)
+    public function hasPermissionThroughRole($permission)
     {
         if (! method_exists($this, 'roles')) {
             return false;
+        }
+
+        if (is_string($permission)) {
+            if (! $permission = Permission::whereName($permission)->first()) {
+                return false;
+            }
         }
 
         foreach ($permission->roles as $role) { 
@@ -93,31 +54,71 @@ trait HasPermissionsTrait
     }
 
     /**
-     * Has permission
+     * Addd permission
      * 
-     * @param Permission $permission
-     * @return boolean
+     * @param mixed ...$permissions
+     * @return $this
      */
-    protected function hasPermission(Permission $permission)
+    public function addPermission(...$permissions)
     {
-        return (bool) $this->permissions->where('name', $permission->name)->count();
+        $permissions = array_flatten($permissions);
+
+        foreach ($permissions as $permission) {
+            if ($this->hasPermission($role)) {
+                continue;
+            }
+
+            if ($permission instanceof Permission) {
+                $this->attach($permission->id);
+            } elseif ($permission = Permission::whereName($permission)->first()) {
+                $this->attach($permission->id);
+            }
+        }
+
+        return $this;
     }
 
     /**
-     * Get all permissions
+     * Remove permission
      * 
-     * @param array $permissions
-     * @return
+     * @param mixed ...$permissions
+     * @return $this
      */
-    protected function getAllPermissions(array $permissions)
+    public function removeRole(...$permissions)
     {
-        return Permission::whereIn('name', $permissions)->get();
+        $permissions = array_flatten($permissions);
+
+        foreach ($permissions as $permission) {
+            if (! $this->hasPermission($permission)) {
+                continue;
+            }
+
+            if ($permission instanceof Permission) {
+                $this->detach($permission->id);
+            } elseif ($permission = Permission::whereName($permission)->first()) {
+                $this->detach($permission->id);
+            }   
+        }
+
+        return $this;
+    }
+
+    /**
+     * Crear all permissions
+     *
+     * @return $this
+     */
+    public function clearPermissions() 
+    {
+        $this->permissions()->detach();
+
+        return $this;
     }
 
     /**
      * Relation to permissions
      * 
-     * @return Illuminate\Database\Eloquent\Relations\Relation
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function permissions()
     {

@@ -10,8 +10,7 @@ use Muan\Acl\Traits\HasPermissionsTrait;
 /**
  * Class Role
  * 
- * @package Muan\Acl
- * @subpackage Models
+ * @package Muan\Acl\Models
  */
 class Role extends Model
 {

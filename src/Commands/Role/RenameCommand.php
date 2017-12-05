@@ -8,8 +8,7 @@ use Muan\Acl\Models\Role;
 /**
  * Class RenameCommand
  *
- * @package Muan\Acl
- * @subpackage Commands
+ * @package Muan\Acl\Commands\Role
  */
 class RenameCommand extends Command
 {

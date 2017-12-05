@@ -8,8 +8,7 @@ use Muan\Acl\Models\Role;
 /**
  * Class AddCommand
  *
- * @package Muan\Acl
- * @subpackage Commands
+ * @package Muan\Acl\Commands\Role
  */
 class AddCommand extends Command
 {

@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{Gate, Blade, Route};
 
 use Muan\Acl\Middleware\{RoleMiddleware, PermissionMiddleware};
-use Muan\Acl\Models\Permission;
+use Muan\Acl\Models\{Permission, UserObserver};
 
 /**
  * Class AclServiceProvider
@@ -40,6 +40,7 @@ class AclServiceProvider extends ServiceProvider
         $this->initPermissions();
         $this->initMiddlewares();
         $this->initDirectives();
+        $this->initUserObserver();
         $this->initCommands();
     }
 
@@ -66,7 +67,7 @@ class AclServiceProvider extends ServiceProvider
 
         Permission::get()->map(function(Permission $permission) {
             Gate::define($permission->name, function ($user) use ($permission) {
-                return $user->hasPermissionTo($permission);
+                return $user->hasPermission($permission);
             });
         });        
     }
@@ -98,6 +99,19 @@ class AclServiceProvider extends ServiceProvider
         Blade::directive('endrole', function() {
             return "<?php endif; ?>";
         });
+    }
+
+    /**
+     * Initialization user observer
+     * 
+     * @return void
+     */
+    protected function initUserObserver()
+    {
+        $userClass = config('app.providers.users.model');
+        if (class_exists($userClass)) {
+            $userClass::observe(UserObserver::class);
+        }
     }
 
     /**

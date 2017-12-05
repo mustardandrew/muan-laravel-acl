@@ -8,8 +8,7 @@ use Exception;
 /**
  * Class Permission
  * 
- * @package Muan\Acl
- * @subpackage Models
+ * @package Muan\Acl\Models
  */
 class Permission extends Model
 {
@@ -26,7 +25,7 @@ class Permission extends Model
     /**
      * Relation to roles
      * 
-     * @return Illuminate\Database\Eloquent\Relations\Relation
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
     {
@@ -36,7 +35,7 @@ class Permission extends Model
     /**
      * Relation to users
      * 
-     * @return Illuminate\Database\Eloquent\Relations\Relation
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
