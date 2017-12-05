@@ -38,15 +38,11 @@ trait HasPermissionsTrait
             return false;
         }
 
-        if (is_string($permission)) {
-            if (! $permission = Permission::whereName($permission)->first()) {
-                return false;
-            }
-        }
-
-        foreach ($permission->roles as $role) { 
-            if ($this->roles->contains($role)) {
-                return true;
+        if ($permission = $this->preparePermission($permission)) {
+            foreach ($permission->roles as $role) { 
+                if ($this->roles->contains($role)) {
+                    return true;
+                }
             }
         }
 
@@ -101,6 +97,20 @@ trait HasPermissionsTrait
         }
 
         return $this;
+    }
+
+    /**
+     * Prepare permission
+     * @param Permission|string $permission
+     * @return Permission
+     */
+    protected function preparePermission($permission)
+    {
+        if ($permission instanceof Permission) {
+            return $permission;
+        }
+
+        return Permission::whereName($permission)->first();
     }
 
     /**
