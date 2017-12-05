@@ -20,25 +20,18 @@ trait HasPermissionsTrait
      */
     public function hasPermission($permission)
     {
-        $name = $permission instanceof Permission ? $permission->name : $permission;
-
-        return $this->hasPermissionThroughRole($permission) 
-            || ((bool) $this->permissions->whereName($name)->count());
+        return $this->hasPermissionThroughRole($permission) || $this->hasDirectPermission($permission);
     }
 
     /**
      * Has permission through role
      * 
-     * @param Permission $permission
+     * @param Permission|string $permission
      * @return boolean
      */
     public function hasPermissionThroughRole($permission)
     {
-        if (! method_exists($this, 'roles')) {
-            return false;
-        }
-
-        if ($permission = $this->preparePermission($permission)) {
+        if (method_exists($this, 'roles') && $permission = $this->preparePermission($permission)) {
             foreach ($permission->roles as $role) { 
                 if ($this->roles->contains($role)) {
                     return true;
@@ -50,6 +43,18 @@ trait HasPermissionsTrait
     }
 
     /**
+     * Has direct permission
+     *
+     * @param Permission|string $permission
+     * @return boolean
+     */
+    public function hasDirectPermission($permission)
+    {
+        $name = $permission instanceof Permission ? $permission->name : $permission;
+        return (bool) $this->permissions->whereName($name)->count();
+    }
+
+    /**
      * Add permission
      * 
      * @param mixed ...$permissions
@@ -57,19 +62,11 @@ trait HasPermissionsTrait
      */
     public function addPermission(...$permissions)
     {
-        $permissions = array_flatten($permissions);
-
-        foreach ($permissions as $permission) {
-            if ($this->hasPermission($role)) {
-                continue;
-            }
-
-            if ($permission instanceof Permission) {
-                $this->attach($permission->id);
-            } elseif ($permission = Permission::whereName($permission)->first()) {
+        $this->each($permissions, function($permission) {
+            if (! $this->hasDirectPermission($permission)) {
                 $this->attach($permission->id);
             }
-        }
+        });
 
         return $this;
     }
@@ -82,35 +79,13 @@ trait HasPermissionsTrait
      */
     public function removePermission(...$permissions)
     {
-        $permissions = array_flatten($permissions);
-
-        foreach ($permissions as $permission) {
-            if (! $this->hasPermission($permission)) {
-                continue;
+        $this->each($permissions, function($permission) {
+            if ($this->hasDirectPermission($permission)) {
+                $this->detach($permission->id);
             }
-
-            if ($permission instanceof Permission) {
-                $this->detach($permission->id);
-            } elseif ($permission = Permission::whereName($permission)->first()) {
-                $this->detach($permission->id);
-            }   
-        }
+        });
 
         return $this;
-    }
-
-    /**
-     * Prepare permission
-     * @param Permission|string $permission
-     * @return Permission
-     */
-    protected function preparePermission($permission)
-    {
-        if ($permission instanceof Permission) {
-            return $permission;
-        }
-
-        return Permission::whereName($permission)->first();
     }
 
     /**
@@ -133,6 +108,37 @@ trait HasPermissionsTrait
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'users_permissions');
+    }
+
+    /**
+     * Prepare permission
+     * @param Permission|string $permission
+     * @return Permission
+     */
+    protected function preparePermission($permission)
+    {
+        if ($permission instanceof Permission) {
+            return $permission;
+        }
+
+        return Permission::whereName($permission)->first();
+    }
+
+    /**
+     * Calc each permission
+     * 
+     * @param array $permissions
+     * @param callable $callback
+     */
+    protected function each(array $permissions, callable $callback)
+    {
+        $permissions = array_flatten($permissions);
+
+        foreach ($permissions as $permission) {
+            if ($permission = $this->preparePermission($permission)) {
+                $callback($permission);    
+            }
+        }
     }
 
 }
