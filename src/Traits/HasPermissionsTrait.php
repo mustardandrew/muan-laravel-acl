@@ -31,11 +31,17 @@ trait HasPermissionsTrait
      */
     public function hasPermissionThroughRole($permission)
     {
-        if (method_exists($this, 'roles') && $permission = $this->preparePermission($permission)) {
-            foreach ($permission->roles as $role) { 
-                if ($this->roles->contains($role)) {
-                    return true;
-                }
+        if (! $this->isMethodRolesExists()) {
+            return false;
+        }
+
+        if (! $permission = $this->preparePermission($permission)) {
+            return false;   
+        }
+
+        foreach ($permission->roles as $role) { 
+            if ($this->roles->contains($role)) {
+                return true;
             }
         }
 
@@ -139,6 +145,16 @@ trait HasPermissionsTrait
                 $callback($permission);    
             }
         }
+    }
+
+    /**
+     * Is method roles exists
+     * 
+     * @return bool
+     */
+    protected function isMethodRolesExists()
+    {
+        return method_exists($this, 'roles');
     }
 
 }
