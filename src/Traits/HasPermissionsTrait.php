@@ -54,7 +54,7 @@ trait HasPermissionsTrait
     }
 
     /**
-     * Addd permission
+     * Add permission
      * 
      * @param mixed ...$permissions
      * @return $this
@@ -84,7 +84,7 @@ trait HasPermissionsTrait
      * @param mixed ...$permissions
      * @return $this
      */
-    public function removeRole(...$permissions)
+    public function removePermission(...$permissions)
     {
         $permissions = array_flatten($permissions);
 
