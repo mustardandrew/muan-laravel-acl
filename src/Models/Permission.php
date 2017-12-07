@@ -25,7 +25,7 @@ class Permission extends Model
     /**
      * Relation to roles
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
     {
@@ -35,7 +35,8 @@ class Permission extends Model
     /**
      * Relation to users
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @throws
      */
     public function users()
     {

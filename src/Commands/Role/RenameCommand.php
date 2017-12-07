@@ -38,7 +38,7 @@ class RenameCommand extends Command
 
         if (! $role = Role::whereName($roleName)->first()) {
             $this->warn("Role {$roleName} not exists.");
-            return;
+            return 1;
         }
 
         $role->name = $newRoleName;
@@ -48,6 +48,8 @@ class RenameCommand extends Command
         } else {
             $this->error("Rename role {$roleName} is fail!");
         }
+
+        return 0;
     }
 
 }

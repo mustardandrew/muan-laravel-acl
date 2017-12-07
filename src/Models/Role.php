@@ -28,11 +28,11 @@ class Role extends Model
     /**
      * Relation to permissions
      * 
-     * @return Illuminate\Database\Eloquent\Relations\Relation
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
     public function permissions()
     {
-        return $this->belongsToMany(Permissions::class, 'roles_permissions');
+        return $this->belongsToMany(Permission::class, 'roles_permissions');
     }
 
     /**

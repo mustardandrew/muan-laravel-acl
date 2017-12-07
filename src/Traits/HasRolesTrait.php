@@ -34,16 +34,16 @@ trait HasRolesTrait
     }
 
     /**
-     * Add role
+     * Attach role
      * 
      * @param mixed ...$roles
      * @return $this
      */
-    public function addRole(...$roles) 
+    public function attachRole(...$roles)
     {
         $this->each($roles, function($role) {
             if (! $this->hasRole($role)) {
-                $this->attach($role->id);
+                $this->roles()->attach($role->id);
             }
         });
 
@@ -51,16 +51,16 @@ trait HasRolesTrait
     }
 
     /**
-     * Remove role
+     * Detach role
      * 
      * @param mixed ...$roles
      * @return $this
      */
-    public function removeRole(...$roles)
+    public function detachRole(...$roles)
     {
         $this->each($roles, function($role) {
             if ($this->hasRole($role)) {
-                $this->detach($role->id);
+                $this->roles()->detach($role->id);
             }
         });
 
@@ -68,7 +68,7 @@ trait HasRolesTrait
     }
 
     /**
-     * Crear all roles
+     * Clear all roles
      *
      * @return $this
      */
@@ -82,7 +82,7 @@ trait HasRolesTrait
     /**
      * Relation to roles
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
     {
@@ -91,13 +91,18 @@ trait HasRolesTrait
 
     /**
      * Prepare role
-     * @param Role|string $role
+     * 
+     * @param Role|int|string $role
      * @return Role
      */
     protected function prepareRole($role)
     {
         if ($role instanceof Role) {
             return $role;
+        }
+
+        if (is_numeric($role)) {
+            return Role::whereId($role)->first();
         }
 
         return Role::whereName($role)->first();

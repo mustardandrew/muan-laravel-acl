@@ -27,6 +27,13 @@ class AclServiceProvider extends ServiceProvider
         \Muan\Acl\Commands\Role\AddCommand::class,
         \Muan\Acl\Commands\Role\RemoveCommand::class,
         \Muan\Acl\Commands\Role\RenameCommand::class,
+        \Muan\Acl\Commands\Role\AttachPermissionCommand::class,
+        \Muan\Acl\Commands\Role\DetachPermissionCommand::class,
+        \Muan\Acl\Commands\Role\ClearPermissionCommand::class,
+        \Muan\Acl\Commands\Permission\ListCommand::class,
+        \Muan\Acl\Commands\Permission\AddCommand::class,
+        \Muan\Acl\Commands\Permission\RemoveCommand::class,
+        \Muan\Acl\Commands\Permission\RenameCommand::class,
     ];
 
     /**

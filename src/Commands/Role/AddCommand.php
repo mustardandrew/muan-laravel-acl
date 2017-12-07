@@ -37,7 +37,7 @@ class AddCommand extends Command
 
         if ($role = Role::whereName($roleName)->first()) {
             $this->warn("Role name {$roleName} already exists.");
-            return;
+            return 1;
         }
 
         if ($role = Role::create(['name' => $roleName])) {
@@ -45,6 +45,8 @@ class AddCommand extends Command
         } else {
             $this->error("Role {$roleName} not created!");
         }
+
+        return 0;
     }
 
 }

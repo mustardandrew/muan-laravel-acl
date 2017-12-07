@@ -57,20 +57,20 @@ trait HasPermissionsTrait
     public function hasDirectPermission($permission)
     {
         $name = $permission instanceof Permission ? $permission->name : $permission;
-        return (bool) $this->permissions->whereName($name)->count();
+        return (bool) $this->permissions->where('name', $name)->count();
     }
 
     /**
-     * Add permission
+     * Attach permission
      * 
      * @param mixed ...$permissions
      * @return $this
      */
-    public function addPermission(...$permissions)
+    public function attachPermission(...$permissions)
     {
         $this->each($permissions, function($permission) {
             if (! $this->hasDirectPermission($permission)) {
-                $this->attach($permission->id);
+                $this->permissions()->attach($permission->id);
             }
         });
 
@@ -78,16 +78,16 @@ trait HasPermissionsTrait
     }
 
     /**
-     * Remove permission
+     * Detach permission
      * 
      * @param mixed ...$permissions
      * @return $this
      */
-    public function removePermission(...$permissions)
+    public function detachPermission(...$permissions)
     {
         $this->each($permissions, function($permission) {
             if ($this->hasDirectPermission($permission)) {
-                $this->detach($permission->id);
+                $this->permissions()->detach($permission->id);
             }
         });
 
@@ -95,7 +95,7 @@ trait HasPermissionsTrait
     }
 
     /**
-     * Crear all permissions
+     * Clear all permissions
      *
      * @return $this
      */
@@ -109,7 +109,7 @@ trait HasPermissionsTrait
     /**
      * Relation to permissions
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function permissions()
     {
@@ -118,6 +118,7 @@ trait HasPermissionsTrait
 
     /**
      * Prepare permission
+     * 
      * @param Permission|string $permission
      * @return Permission
      */
@@ -125,6 +126,10 @@ trait HasPermissionsTrait
     {
         if ($permission instanceof Permission) {
             return $permission;
+        }
+
+        if (is_numeric($permission)) {
+            return Permission::whereId($permission)->first();
         }
 
         return Permission::whereName($permission)->first();

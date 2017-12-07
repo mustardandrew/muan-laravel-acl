@@ -5,11 +5,11 @@ namespace Muan\Acl\Middleware;
 use Closure;
 
 /**
- * Class PerrmissionMiddleware
+ * Class PermissionMiddleware
  *
  * @package Muan\Acl\Middleware
  */
-class PerrmissionMiddleware
+class PermissionMiddleware
 {
     
     /**

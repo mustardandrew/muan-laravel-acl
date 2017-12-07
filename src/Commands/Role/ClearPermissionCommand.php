@@ -6,25 +6,25 @@ use Illuminate\Console\Command;
 use Muan\Acl\Models\Role;
 
 /**
- * Class RemoveCommand
+ * Class ClearPermissionCommand
  *
  * @package Muan\Acl\Commands\Role
  */
-class RemoveCommand extends Command
+class ClearPermissionCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'role:remove {role}';
+    protected $signature = 'role:clear {role}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Remove role';
+    protected $description = 'Clear permission';
 
     /**
      * Execute the console command.
@@ -40,11 +40,8 @@ class RemoveCommand extends Command
             return 1;
         }
 
-        if ($role->delete()) {
-            echo "Role {$roleName} removed successfully.", PHP_EOL;
-        } else {
-            $this->error("Role {$roleName} not removed!");
-        }
+        $role->clearPermissions();
+        echo "Clear permissions. Done!", PHP_EOL;
 
         return 0;
     }

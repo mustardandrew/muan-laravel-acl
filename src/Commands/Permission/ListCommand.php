@@ -1,14 +1,14 @@
 <?php
 
-namespace Muan\Acl\Commands\Role;
+namespace Muan\Acl\Commands\Permission;
 
 use Illuminate\Console\Command;
-use Muan\Acl\Models\Role;
+use Muan\Acl\Models\Permission;
 
 /**
  * Class ListCommand
  *
- * @package Muan\Acl\Commands\Role
+ * @package Muan\Acl\Commands\Permission
  */
 class ListCommand extends Command
 {
@@ -17,14 +17,14 @@ class ListCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:list';
+    protected $signature = 'permission:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Show role list';
+    protected $description = 'Show permission list';
 
     /**
      * Execute the console command.
@@ -33,15 +33,15 @@ class ListCommand extends Command
      */
     public function handle()
     {
-        $roles = Role::all(['id', 'name', 'created_at', 'updated_at']);
+        $permissions = Permission::all(['id', 'name', 'created_at', 'updated_at']);
 
-        if ($roles->count()) {
+        if ($permissions->count()) {
             $this->table(
-                ['ID', 'Role', 'Created At', 'Updated At'],
-                $roles->toArray()
+                ['ID', 'Permission', 'Created At', 'Updated At'],
+                $permissions->toArray()
             );
         } else {
-            $this->warn("Not found any roles!");
+            $this->warn("Not found any permissions!");
         }
 
         return 0;
