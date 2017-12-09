@@ -41,7 +41,7 @@ trait HasRolesTrait
      */
     public function attachRole(...$roles)
     {
-        $this->each($roles, function($role) {
+        $this->eachRole($roles, function($role) {
             if (! $this->hasRole($role)) {
                 $this->roles()->attach($role->id);
             }
@@ -58,7 +58,7 @@ trait HasRolesTrait
      */
     public function detachRole(...$roles)
     {
-        $this->each($roles, function($role) {
+        $this->eachRole($roles, function($role) {
             if ($this->hasRole($role)) {
                 $this->roles()->detach($role->id);
             }
@@ -95,7 +95,7 @@ trait HasRolesTrait
      * @param Role|int|string $role
      * @return Role
      */
-    protected function prepareRole($role)
+    public function prepareRole($role)
     {
         if ($role instanceof Role) {
             return $role;
@@ -114,7 +114,7 @@ trait HasRolesTrait
      * @param array $roles
      * @param callable $callback
      */
-    protected function each(array $roles, callable $callback)
+    public function eachRole(array $roles, callable $callback)
     {
         $roles = array_flatten($roles);
 

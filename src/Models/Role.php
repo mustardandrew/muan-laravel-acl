@@ -37,12 +37,13 @@ class Role extends Model
 
     /**
      * Relations to user
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\Relation
+     *
+     * @throws
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
     public function users()
     {
-        $userClass = config('app.providers.users.model');
+        $userClass = config('auth.providers.users.model');
 
         if (! class_exists($userClass)) {
             throw new Exception("User class {$userClass} not found!", 1);

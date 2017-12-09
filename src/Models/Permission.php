@@ -40,7 +40,7 @@ class Permission extends Model
      */
     public function users()
     {
-        $userClass = config('app.providers.users.model');
+        $userClass = config('auth.providers.users.model');
 
         if (! class_exists($userClass)) {
             throw new Exception("User class {$userClass} not found!", 1);

@@ -23,8 +23,8 @@ class UserObserver
         }
  
         // Attach base role
-        if (method_exists($user, 'addRole')) {
-            $user->addRole($baseName);
+        if (method_exists($user, 'attachRole')) {
+            $user->attachRole($baseName);
         }
     }
 

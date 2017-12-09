@@ -18,7 +18,7 @@ composer require muan/laravel-acl
 
 2) Add the service provider to your config/app.php file in section providers:
 
-> Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
+> Laravel 5.5 uses Package Auto-Discovery, so does not require you to manually add the ServiceProvider.
 
 ```php
 'providers' => [
@@ -34,7 +34,9 @@ composer require muan/laravel-acl
 php artisan migration
 ```
 
-4) Use the following traits on your User model:
+## Usage
+
+### Use the following traits on your User model:
 
 ```php
 // ...
@@ -49,13 +51,27 @@ class User extends Authenticatable
 }
 ```
 
-## Usage
+### Using observer
+
+To bind the base role to the user after registration, you can specify a public property $baseRole.
+
+For example:
+
+```php
+class User extends Authenticatable
+{
+    // ...
+    
+    /**
+     * Attach base role
+     */
+    public $baseRole = 'user';
+    
+    // ...
+}
+```
 
 ### Using in code
-
-// TODO
-
-### Using observer
 
 // TODO
 
@@ -126,7 +142,7 @@ Route::middleware(['permission:create post'])->group(function() {
 });
 ```
 
-or use role and permission middlewares together
+or use role and permission middleware together
 
 ```php
 Route::middleware(['role:moderator', 'permission:remove post'])->group(function() {

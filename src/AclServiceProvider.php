@@ -115,7 +115,7 @@ class AclServiceProvider extends ServiceProvider
      */
     protected function initUserObserver()
     {
-        $userClass = config('app.providers.users.model');
+        $userClass = config('auth.providers.users.model');
         if (class_exists($userClass)) {
             $userClass::observe(UserObserver::class);
         }

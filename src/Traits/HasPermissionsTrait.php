@@ -68,7 +68,7 @@ trait HasPermissionsTrait
      */
     public function attachPermission(...$permissions)
     {
-        $this->each($permissions, function($permission) {
+        $this->eachPermission($permissions, function($permission) {
             if (! $this->hasDirectPermission($permission)) {
                 $this->permissions()->attach($permission->id);
             }
@@ -85,7 +85,7 @@ trait HasPermissionsTrait
      */
     public function detachPermission(...$permissions)
     {
-        $this->each($permissions, function($permission) {
+        $this->eachPermission($permissions, function($permission) {
             if ($this->hasDirectPermission($permission)) {
                 $this->permissions()->detach($permission->id);
             }
@@ -122,7 +122,7 @@ trait HasPermissionsTrait
      * @param Permission|string $permission
      * @return Permission
      */
-    protected function preparePermission($permission)
+    public function preparePermission($permission)
     {
         if ($permission instanceof Permission) {
             return $permission;
@@ -141,7 +141,7 @@ trait HasPermissionsTrait
      * @param array $permissions
      * @param callable $callback
      */
-    protected function each(array $permissions, callable $callback)
+    public function eachPermission(array $permissions, callable $callback)
     {
         $permissions = array_flatten($permissions);
 
