@@ -22,7 +22,7 @@ class AclServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        \Muan\Acl\Commands\Role\RoleCommand::class,
+        \Muan\Acl\Commands\Role\ViewCommand::class,
         \Muan\Acl\Commands\Role\ListCommand::class,
         \Muan\Acl\Commands\Role\AddCommand::class,
         \Muan\Acl\Commands\Role\RemoveCommand::class,

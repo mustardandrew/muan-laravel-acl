@@ -6,18 +6,18 @@ use Illuminate\Console\Command;
 use Muan\Acl\Models\Role;
 
 /**
- * Class RoleCommand
+ * Class ViewCommand
  *
  * @package Muan\Acl\Commands\Role
  */
-class RoleCommand extends Command
+class ViewCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'role {role}';
+    protected $signature = 'role:view {role}';
 
     /**
      * The console command description.
