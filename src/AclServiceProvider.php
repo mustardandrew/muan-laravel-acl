@@ -22,6 +22,7 @@ class AclServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        // Role
         \Muan\Acl\Commands\Role\ViewCommand::class,
         \Muan\Acl\Commands\Role\ListCommand::class,
         \Muan\Acl\Commands\Role\AddCommand::class,
@@ -30,10 +31,19 @@ class AclServiceProvider extends ServiceProvider
         \Muan\Acl\Commands\Role\AttachPermissionCommand::class,
         \Muan\Acl\Commands\Role\DetachPermissionCommand::class,
         \Muan\Acl\Commands\Role\ClearPermissionCommand::class,
+        // Permission
         \Muan\Acl\Commands\Permission\ListCommand::class,
         \Muan\Acl\Commands\Permission\AddCommand::class,
         \Muan\Acl\Commands\Permission\RemoveCommand::class,
         \Muan\Acl\Commands\Permission\RenameCommand::class,
+        // User
+        \Muan\Acl\Commands\User\ClearRoleCommand::class,
+        \Muan\Acl\Commands\User\ClearPermissionCommand::class,
+        \Muan\Acl\Commands\User\ViewCommand::class,
+        \Muan\Acl\Commands\User\AttachPermissionCommand::class,
+        \Muan\Acl\Commands\User\DetachPermissionCommand::class,
+        \Muan\Acl\Commands\User\AttachRoleCommand::class,
+        \Muan\Acl\Commands\User\DetachRoleCommand::class,
     ];
 
     /**

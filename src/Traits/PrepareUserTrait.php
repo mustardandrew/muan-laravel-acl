@@ -19,7 +19,7 @@ trait PrepareUserTrait
      * @return mixed
      * @throws Exception
      */
-    public function prepareUser(integer $id)
+    public function prepareUser($id)
     {
         $userClass = config('auth.providers.users.model');
 
