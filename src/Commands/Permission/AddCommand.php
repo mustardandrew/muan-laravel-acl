@@ -17,7 +17,7 @@ class AddCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'permission:add {permission}';
+    protected $signature = 'permission:add {permissions}';
 
     /**
      * The console command description.

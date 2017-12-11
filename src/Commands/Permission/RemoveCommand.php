@@ -17,7 +17,7 @@ class RemoveCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'permission:remove {permission}';
+    protected $signature = 'permission:remove {permission : Permission name}';
 
     /**
      * The console command description.

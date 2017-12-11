@@ -20,7 +20,7 @@ class ClearRoleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:role-clear {id}';
+    protected $signature = 'user:role-clear {id : User ID}';
 
     /**
      * The console command description.

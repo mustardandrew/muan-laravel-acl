@@ -17,7 +17,7 @@ class RenameCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:rename {role} {newRole}';
+    protected $signature = 'role:rename {role : Role name} {newRole : New role name}';
 
     /**
      * The console command description.

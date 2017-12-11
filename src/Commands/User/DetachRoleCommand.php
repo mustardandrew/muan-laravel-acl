@@ -20,7 +20,7 @@ class DetachRoleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:role-detach {id}
+    protected $signature = 'user:role-detach {id : User ID}
                             {--id=* : Role id}
                             {--name=* : Role name}';
 

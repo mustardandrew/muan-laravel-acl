@@ -20,7 +20,7 @@ class AttachPermissionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:permission-attach {id}
+    protected $signature = 'user:permission-attach {id : User ID}
                             {--id=* : Permission id}
                             {--name=* : Permission name}';
 

@@ -17,7 +17,7 @@ class RenameCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'permission:rename {permission} {newPermission}';
+    protected $signature = 'permission:rename {permission : Permission name} {newPermission : New permission name}';
 
     /**
      * The console command description.

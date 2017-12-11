@@ -17,7 +17,7 @@ class RemoveCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:remove {role}';
+    protected $signature = 'role:remove {role : Role name}';
 
     /**
      * The console command description.

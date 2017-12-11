@@ -20,7 +20,7 @@ class ClearPermissionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:permission-clear {id}';
+    protected $signature = 'user:permission-clear {id : User ID}';
 
     /**
      * The console command description.

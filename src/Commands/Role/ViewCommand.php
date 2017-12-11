@@ -17,7 +17,7 @@ class ViewCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:view {role}';
+    protected $signature = 'role:view {role : Role name}';
 
     /**
      * The console command description.

@@ -3,6 +3,7 @@
 namespace Muan\Acl\Commands\User;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Support\Arrayable;
 use Muan\Acl\Traits\PrepareUserTrait;
 use Exception;
 
@@ -20,7 +21,7 @@ class ViewCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:view {id}';
+    protected $signature = 'user:view {id : User ID}';
 
     /**
      * The console command description.
@@ -49,61 +50,51 @@ class ViewCommand extends Command
         echo "Created at: {$user->created_at}", PHP_EOL;
         echo "Updated at: {$user->updated_at}", PHP_EOL;
 
-        $this->showRoles($user);
-        $this->showPermissions($user);
+        $this->show($user, 'role');
+        $this->show($user, 'permission');
 
         return 0;
     }
 
     /**
-     * Show information about roles
+     * Show roles or permissions
      *
      * @param $user
+     * @param string $modelName
      */
-    protected function showRoles($user)
+    protected function show($user, string $modelName)
     {
-        if (! $user->roles) {
-            $this->warn("User not use HasRolesTrait!");
+        $method = "{$modelName}s";
+        $methodTitle = ucfirst($method);
+
+        if (! $user->$method) {
+            $this->warn("User not use Has{$methodTitle}Trait!");
             return;
         }
 
-        echo "Roles:", PHP_EOL;
+        echo "{$methodTitle}:", PHP_EOL;
 
-        $data = collect($user->roles->toArray())->map(function($item) {
-            unset($item['pivot']);
-            return $item;
-        });
+        $data = $this->prepareData($user->$method->toArray());
 
-        if ($user->roles->count()) {
-            $this->table(['ID', 'Role', 'Created At', 'Updated At'], $data);
+        if ($user->$method->count()) {
+            $this->table(['ID', ucfirst($modelName), 'Created At', 'Updated At'], $data);
         } else {
-            $this->warn("Not found any roles!");
+            $this->warn("Not found any {$method}!");
         }
     }
 
     /**
-     * Show information about permission
+     * Prepare data
      *
-     * @param $user
+     * @param array $data
+     * @return Arrayable
      */
-    protected function showPermissions($user)
+    protected function prepareData(array $data) : Arrayable
     {
-        if (! $user->permissions) {
-            $this->warn("User not use HasPermissionsTrait!");
-            return;
-        }
-
-        echo "Permissions:", PHP_EOL;
-
-        $data = collect($user->permissions->toArray())->map(function($item) {
+        return  collect($data)->map(function($item) {
             unset($item['pivot']);
             return $item;
         });
-
-        if ($user->permissions->count()) {
-            $this->table(['ID', 'Permission', 'Created At', 'Updated At'], $data);
-        } else {
-            $this->warn("Not found any permissions!");
-        }
     }
+
 }

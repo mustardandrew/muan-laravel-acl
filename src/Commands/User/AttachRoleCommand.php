@@ -20,7 +20,7 @@ class AttachRoleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:role-attach {id}
+    protected $signature = 'user:role-attach {id : User ID}
                             {--id=* : Role id}
                             {--name=* : Role name}';
 

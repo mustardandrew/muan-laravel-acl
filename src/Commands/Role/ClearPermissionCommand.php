@@ -17,7 +17,7 @@ class ClearPermissionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:clear {role}';
+    protected $signature = 'role:clear {role : Role name}';
 
     /**
      * The console command description.

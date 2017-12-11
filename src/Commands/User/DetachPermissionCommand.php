@@ -20,7 +20,7 @@ class DetachPermissionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:permission-detach {id}
+    protected $signature = 'user:permission-detach {id : User ID}
                             {--id=* : Permission id}
                             {--name=* : Permission name}';
 

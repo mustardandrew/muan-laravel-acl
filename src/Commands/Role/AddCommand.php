@@ -17,7 +17,7 @@ class AddCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'role:add {role}';
+    protected $signature = 'role:add {role : Role name}';
 
     /**
      * The console command description.
