@@ -77,7 +77,107 @@ class User extends Authenticatable
 
 ### Commands for manipulation
 
-// TODO
+#### Permissions
+
+Create new permission
+```bash
+php artisan permission:add "create post"
+```
+
+Rename permission
+```bash
+php artisan permission:rename "create post" create.post
+```
+
+Remove permission
+```bash
+php artisan permission:remove "create post"
+```
+
+Show all permissions
+```bash
+php artisan permission:list
+```
+
+#### Roles
+
+Create new role
+```bash
+php artisan role:add admin
+```
+
+Rename role
+```bash
+php artisan role:rename admin superuser
+```
+
+Remove role
+```bash
+php artisan role:remove admin
+```
+
+View all roles
+```bash
+php artisan role:list
+```
+
+Attach permissions to role
+```bash
+php artisan role:attach admin --id=2 --id=3 --name="create post"
+```
+
+Detach permissions from role
+```bash
+php artisan role:detach admin --id=3 --name="destroy user"
+```
+
+Clear all attached permissions
+```bash
+php artisan role:clear
+```
+
+View information about role and show all attached permissions
+```bash
+php artisan role:view admin
+```
+
+#### Users
+
+Attach roles
+```bash
+php artisan user:role-attach 5 --id=2 --name=moderator
+```
+
+Detach roles
+```bash
+php artisan user:role-detach 5 --id=2 --name=admin
+```
+
+Detached all roles from user
+```bash
+php artisan user:role-clear
+```
+
+Attach permissions
+```bash
+php artisan user:permission-attach 5 --id=7 --name="remove comment"
+```
+
+Detach permissions
+```bash
+php artisan user:permission-detach 5 --id=2 --name="read secret post"
+```
+
+Detached all permission from user
+```bash
+php artisan user:permission-clear
+```
+
+View information about user, all attached roles and permissions
+```bash
+php artisan user:view 5
+```
+where 5 is ID of user.
 
 ### Using blade directives
 
