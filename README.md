@@ -1,4 +1,4 @@
-# Muan Laravel Acl package (not completed)
+# Muan Laravel Acl package v1.0-beta
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/aafb0da4bb6b457f635b/maintainability)](https://codeclimate.com/github/mustardandrew/muan-laravel-acl/maintainability)
 
@@ -73,7 +73,57 @@ class User extends Authenticatable
 
 ### Using in code
 
-// TODO
+Check role
+```
+if ($user->hasRole('admin')) {
+    // User is admin
+}
+// or
+if ($user->hasRole('admin', 'writer')) {
+    // User is admin or writer
+}
+```
+
+Attach role 
+```php
+$user->attachRole(10, "moderator")
+```
+
+The same function, detach role 
+```php
+$user->detachRole('moder');
+// ...
+$user->detachRole('admin', '3', '2');
+```
+
+Clear all roles
+```php
+$user->clearRoles();
+```
+
+Check permission
+```php
+if ($user->hasPermission('create post')) {
+    // User has permission "create post"
+}
+```
+
+Attach permissions
+```php
+$user->attachPermission("update post");
+```
+
+Detach permissions
+```php
+$user->detachPermission("remove post");
+```
+
+Clear all permissions
+```php
+$user->clearPermissions();
+```
+
+See the code for more information... =)
 
 ### Commands for manipulation
 
