@@ -19,7 +19,7 @@
             "Muan\\Acl\\": "src/"
         }
     },
-    "minimum-stability": "v1.0",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {
         "laravel": {
