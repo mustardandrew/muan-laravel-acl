@@ -74,7 +74,7 @@ class User extends Authenticatable
 ### Using in code
 
 Check role
-```
+```php
 if ($user->hasRole('admin')) {
     // User is admin
 }
