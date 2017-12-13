@@ -1,7 +1,7 @@
 {
     "name": "muan/laravel-acl",
     "description": "ACL package for Laravel",
-    "version": "1.0-beta",
+    "version": "1.0",
     "type": "package",
     "keywords": ["laravel", "acl", "role", "permission", "package"],
     "license": "MIT",
