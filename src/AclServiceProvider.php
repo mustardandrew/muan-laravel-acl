@@ -96,8 +96,8 @@ class AclServiceProvider extends ServiceProvider
      */
     protected function initMiddlewares()
     {
-        Route::middleware('role', RoleMiddleware::class);
-        Route::middleware('permission', PermissionMiddleware::class);
+        Route::aliasMiddleware('role', RoleMiddleware::class);
+        Route::aliasMiddleware('permission', PermissionMiddleware::class);
     }
 
     /**

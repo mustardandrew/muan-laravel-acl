@@ -22,8 +22,12 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, $permission)
     {
-        if (! $request->user()->can($permission)) {
-            abort(403);
+        if (! $user = $request->user()) {
+            abort(403, "Access denied!");
+        }
+
+        if (! $user->can($permission)) {
+            abort(403, "Access denied!");
         }
 
         return $next($request);
