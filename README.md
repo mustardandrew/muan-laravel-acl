@@ -1,4 +1,4 @@
-# Muan Laravel Acl package v1.0
+# Muan Laravel Acl package v1.1
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/aafb0da4bb6b457f635b/maintainability)](https://codeclimate.com/github/mustardandrew/muan-laravel-acl/maintainability)
 
