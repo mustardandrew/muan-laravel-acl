@@ -31,7 +31,7 @@ composer require muan/laravel-acl
 3) Run the migrations:
 
 ```bash
-php artisan migration
+php artisan migrate
 ```
 
 ## Usage
