@@ -20,7 +20,11 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+            if (((float) app()->version()) >= 5.8) {
+                $table->bigIncrements('id');
+            } else {
+                $table->increments('id');
+            }
             $table->string('name');
             $table->timestamps();
         });
