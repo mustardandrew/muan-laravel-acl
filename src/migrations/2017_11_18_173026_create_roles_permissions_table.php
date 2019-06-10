@@ -19,9 +19,14 @@ class CreateRolesPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles_permissions', function (Blueprint $table) {
-            $table->integer('role_id')->unsigned();
-            $table->integer('permission_id')->unsigned();
+        Schema::create('roles_permissions', function (Blueprint $table) {            
+            if (((float) app()->version()) >= 5.8) {
+                $table->bigInteger('role_id')->unsigned();
+                $table->bigInteger('permission_id')->unsigned();
+            } else {
+                $table->integer('role_id')->unsigned();
+                $table->integer('permission_id')->unsigned();
+            }
 
             $table
                 ->foreign('role_id')
