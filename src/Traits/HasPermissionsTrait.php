@@ -145,7 +145,7 @@ trait HasPermissionsTrait
     {
         $permissions = (function_exists('array_flatten'))
             ? array_flatten($permissions)
-            : Arr::flatten($permissions);
+            : \Arr::flatten($permissions);
 
         foreach ($permissions as $permission) {
             if ($permission = $this->preparePermission($permission)) {

@@ -22,7 +22,7 @@ trait HasRolesTrait
     {
         $roles = (function_exists('array_flatten'))
             ? array_flatten($roles)
-            : Arr::flatten($roles);
+            : \Arr::flatten($roles);
 
 
         foreach ($roles as $role) {
@@ -121,7 +121,7 @@ trait HasRolesTrait
     {
         $roles = (function_exists('array_flatten'))
             ? array_flatten($roles)
-            : Arr::flatten($roles);
+            : \Arr::flatten($roles);
 
         foreach ($roles as $role) {
             if ($role = $this->prepareRole($role)) {
