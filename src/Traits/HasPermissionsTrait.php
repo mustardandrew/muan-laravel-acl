@@ -143,7 +143,9 @@ trait HasPermissionsTrait
      */
     public function eachPermission(array $permissions, callable $callback)
     {
-        $permissions = array_flatten($permissions);
+        $permissions = (function_exists('array_flatten'))
+            ? array_flatten($permissions)
+            : Arr::flatten($permissions);
 
         foreach ($permissions as $permission) {
             if ($permission = $this->preparePermission($permission)) {

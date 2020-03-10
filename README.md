@@ -1,4 +1,4 @@
-# Muan Laravel Acl package v1.2
+# Muan Laravel Acl package v1.3
 
 Muan Acl is a PHP package for Laravel Framework, used for manipulation of access control list. Package is providing an easier way to control roles and permissions of users on your site.
 

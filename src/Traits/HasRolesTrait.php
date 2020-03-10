@@ -20,7 +20,10 @@ trait HasRolesTrait
      */
     public function hasRole(...$roles)
     {
-        $roles = array_flatten($roles);
+        $roles = (function_exists('array_flatten'))
+            ? array_flatten($roles)
+            : Arr::flatten($roles);
+
 
         foreach ($roles as $role) {
             $name = $role instanceof Role ? $role->name : $role;
@@ -116,7 +119,9 @@ trait HasRolesTrait
      */
     public function eachRole(array $roles, callable $callback)
     {
-        $roles = array_flatten($roles);
+        $roles = (function_exists('array_flatten'))
+            ? array_flatten($roles)
+            : Arr::flatten($roles);
 
         foreach ($roles as $role) {
             if ($role = $this->prepareRole($role)) {
